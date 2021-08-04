@@ -9,6 +9,7 @@
 
 using namespace std;
 
+// TODO: 테스트 케이스는 모두 통과했지만 채점해보면 틀리는 문제가 있음
 bool solution(vector<string> phone_book) {
     unordered_set<int> lengthSet;
     for (string phoneNumber : phone_book) {
@@ -19,11 +20,7 @@ bool solution(vector<string> phone_book) {
     for (string phoneNumber : phone_book) {
         for (int length : lengthSet) {
             string phoneStr = phoneNumber.substr(0, length);
-            if (phoneMap.find(phoneStr) == phoneMap.end()) {
-                phoneMap.insert(make_pair(phoneStr, 1));
-            } else {
-                phoneMap[phoneStr]++;
-            }
+            ++phoneMap[phoneStr];
         }
     }
 

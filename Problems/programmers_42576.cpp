@@ -8,11 +8,14 @@
 
 using namespace std;
 
+// 참고! unordered_map의 operator[]에서 key가 없을 경우에는 초기값을 생성하므로 int의 경우 0으로 초기화 됨
+// 출처: https://stackoverflow.com/questions/59192236/does-stdunordered-map-operator-do-zero-initialization-for-non-exisiting-key
+
 string solution(vector<string> participant, vector<string> completion) {
     string answer = "";
     unordered_map<string, int> personMap;
     for (string p_person : participant) {
-        if (personMap.find(p_person) == personMap.end()) {
+        if (personMap.find(p_person) == personMap.end()) { // 조건 확인 불필요
             personMap.insert(make_pair(p_person, 1));
         } else {
             personMap[p_person]++;
