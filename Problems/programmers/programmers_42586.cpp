@@ -15,14 +15,13 @@ vector<int> solution(vector<int> progresses, vector<int> speeds) {
         q.push(progress);
     }
 
-    int idx = 0;
+    int taskIdx = 0;
     int dayCnt = 0;
     while (!q.empty()) {
         int taskCnt = 0;
-        while (!q.empty() && q.front() + speeds[idx] * dayCnt >= 100) {
-            ++taskCnt;
+        for ( ; q.front() + speeds[taskIdx] * dayCnt >= 100; ++taskIdx) {
             q.pop();
-            ++idx;
+            ++taskCnt;
         }
         if (taskCnt > 0) {
             answer.push_back(taskCnt);
