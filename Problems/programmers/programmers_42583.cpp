@@ -8,7 +8,7 @@
 using namespace std;
 
 int solution(int bridge_length, int weight, vector<int> truck_weights) {
-    int answer = 0;
+    int answer = 1;
     queue<int> q;
     for (int weight : truck_weights) {
         q.push(weight);
@@ -17,18 +17,19 @@ int solution(int bridge_length, int weight, vector<int> truck_weights) {
     vector<pair<int, int>> trucksOnBridge;
     int weightsOnBridge = 0;
     while (1) {
-        int truckWeight = q.front();
-        if (!q.empty() && weightsOnBridge + truckWeight < weight) {
+        if (!q.empty() && weightsOnBridge + q.front() <= weight) {
+            int truckWeight = q.front();
             q.pop();
             weightsOnBridge += truckWeight;
             trucksOnBridge.push_back(make_pair(truckWeight, 0));
         }
+
         for (auto it = trucksOnBridge.begin(); it != trucksOnBridge.end(); ) {
+            ++it->second;
             if (it->second == bridge_length) {
                 weightsOnBridge -= it->first;
                 trucksOnBridge.erase(it);
             } else {
-                ++it->second;
                 ++it;
             }
         }
