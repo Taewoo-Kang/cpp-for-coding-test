@@ -12,3 +12,4 @@
 - 스택/큐
   - [기능개발](./programmers/programmers_42586.cpp)
   - [프린터](./programmers/programmers_42587.cpp)
+  - [다리를 지나는 트럭](./programmers/programmers_42583.cpp)
