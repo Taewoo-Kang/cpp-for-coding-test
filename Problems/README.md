@@ -13,3 +13,9 @@
   - [기능개발](./programmers/programmers_42586.cpp)
   - [프린터](./programmers/programmers_42587.cpp)
   - [다리를 지나는 트럭](./programmers/programmers_42583.cpp)
+  - [주식가격](./programmers/programmers_42584.cpp)
+
+- 정렬
+  - [K번째 수](./programmers/programmers_42748.cpp)
+  - [가장 큰 수](./programmers/programmers_42746.cpp)
+  - [H-Index](./programmers/programmers_42747.cpp)
