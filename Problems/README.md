@@ -15,6 +15,10 @@
   - [다리를 지나는 트럭](./programmers/programmers_42583.cpp)
   - [주식가격](./programmers/programmers_42584.cpp)
 
+- 힙
+  - [더 맵게](./progreammers/programmers_42626)
+  - [디스크 컨트롤러](./progreammers/programmers_42627)
+
 - 정렬
   - [K번째 수](./programmers/programmers_42748.cpp)
   - [가장 큰 수](./programmers/programmers_42746.cpp)
