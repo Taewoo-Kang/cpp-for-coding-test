@@ -6,8 +6,12 @@
 #include <vector>
 #include <string>
 #include <queue>
+#include <set>
 
 using namespace std;
+
+// 참고! multiset을 사용할 경우 중복 허용 및 정렬 가능
+// multiset을 활용한 풀이는 밑에 주석처리하여 첨부
 
 vector<int> solution(vector<string> operations) {
     vector<int> answer;
@@ -48,7 +52,26 @@ vector<int> solution(vector<string> operations) {
     }
     return answer;
 }
-
+/*
+vector<int> solution(vector<string> operations) {
+    vector<int> answer;
+    multiset<int> ms;
+    
+    for(auto o : operations){
+        if(o == "D 1" && ms.size()>0){
+            ms.erase(--ms.end());
+        }else if(o == "D -1" && ms.size()>0){
+            ms.erase(ms.begin());
+        }else if(o[0] == 'I'){
+            ms.insert(stoi(o.substr(2, o.size()-2)));
+        }
+    }
+    if(ms.size() == 0)
+        return {0, 0};
+    else
+        return {*(--ms.end()), *ms.begin()};
+}
+*/
 template <typename T>
 ostream& operator<< (ostream& os, const vector<T>& v) {
   if ( !v.empty() ) {
