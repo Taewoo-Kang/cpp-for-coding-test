@@ -24,3 +24,6 @@
   - [K번째 수](./programmers/programmers_42748.cpp)
   - [가장 큰 수](./programmers/programmers_42746.cpp)
   - [H-Index](./programmers/programmers_42747.cpp)
+
+- 완전탐색
+  - [모의고사](./programmers/programmers_42840.cpp)
