@@ -28,3 +28,4 @@
 - 완전탐색
   - [모의고사](./programmers/programmers_42840.cpp)
   - [소수 찾기](./programmers/programmers_42839.cpp)
+  - [카펫](./programmers/programmers_42842.cpp)
