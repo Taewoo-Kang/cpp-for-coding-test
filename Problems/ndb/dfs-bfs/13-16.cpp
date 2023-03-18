@@ -27,74 +27,61 @@
 */
 
 #include <iostream>
-#include <queue>
 #include <cstring>
+#include <queue>
 
 using namespace std;
 
-int lab[8][8];
 int N, M;
+int lab[8][8];
 int ret;
 
-struct Position{
+int num_wall;
+
+struct Position {
   int x;
   int y;
 };
+queue<Position> virus;
 
 const int dx[] = { 0, 0, -1, 1 };
 const int dy[] = { 1, -1, 0, 0 };
 
 void bfs() {
-  queue<Position> q;
   int copied_lab[8][8];
-  int visited[8][8] = {0,};
-  for (int y = 0; y < N; ++y) {
-    for (int x = 0; x < M; ++x) {
-      copied_lab[y][x] = lab[y][x];
-      if (lab[y][x] == 2) {
-        q.push({x, y});
-        visited[y][x] = 1;
-      }
-    }
-  }
+  memcpy(copied_lab, lab, sizeof(lab));
+  queue<Position> copied_virus = virus;
+  int visited[8][8] = { 0, };
 
-  while (!q.empty()) {
-    Position cur = q.front();
-    q.pop();
-    int cx = cur.x;
-    int cy = cur.y;
-    copied_lab[cy][cx] = 2;
-
+  int num_virus = copied_virus.size();
+  while (!copied_virus.empty()) {
+    Position cur = copied_virus.front();
+    copied_virus.pop();
+    int x = cur.x;
+    int y = cur.y;
+    visited[y][x] = 1;
     for (int i = 0; i < 4; ++i) {
-      int nx = cx + dx[i];
-      int ny = cy + dy[i];
+      int nx = x + dx[i];
+      int ny = y + dy[i];
       if (nx < 0 || nx >= M || ny < 0 || ny >= N) {
         continue;
       }
-
       if (visited[ny][nx] == 0 && copied_lab[ny][nx] == 0) {
-        visited[ny][nx] = 1;
-        q.push({nx, ny});
+        copied_lab[ny][nx] = 2;
+        copied_virus.push({nx, ny});
+        ++num_virus;
       }
     }
   }
 
-  int safe = 0;
-  for (int y = 0; y < N; ++y) {
-    for (int x = 0; x < M; ++x) {
-      if (copied_lab[y][x] == 0) {
-        ++safe;
-      }
-    }
-  }
-
-  if (safe > ret) {
-    ret = safe;
+  int safe_zone = N * M - (num_wall + 3) - num_virus;
+  if (safe_zone > ret) {
+    ret = safe_zone;
   }
 }
 
-void perm_dfs(int cnt, int sx, int sy) {
-  if (cnt == 3) {
+void dfs(int count, int sx, int sy) {
+  if (count == 3) {
     bfs();
     return;
   }
@@ -103,7 +90,7 @@ void perm_dfs(int cnt, int sx, int sy) {
     for (int x = sx; x < M; ++x) {
       if (lab[y][x] == 0) {
         lab[y][x] = 1;
-        perm_dfs(cnt + 1, x, y);
+        dfs(count + 1, x, y);
         lab[y][x] = 0;
       }
     }
@@ -114,33 +101,39 @@ void perm_dfs(int cnt, int sx, int sy) {
 void init() {
   memset(lab, 0, sizeof(lab));
   ret = 0;
+  num_wall = 0;
+  virus = queue<Position>();
 }
 
 void solution() {
   init();
 
   cin >> N >> M;
-  for (int i = 0; i < N; ++i) {
-    for (int j = 0; j < M; ++j) {
-      cin >> lab[i][j];
+  for (int y = 0; y < N; ++y) {
+    for (int x = 0; x < M; ++x) {
+      cin >> lab[y][x];
+      if (lab[y][x] == 2) {
+        virus.push({x, y});
+      } else if (lab[y][x] == 1) {
+        ++num_wall;
+      }
     }
   }
 
-  perm_dfs(0, 0, 0);
+  dfs(0, 0, 0);
   cout << ret << '\n';
 }
 
 int main() {
-  ios::sync_with_stdio(false); 
-  cin.tie(NULL); 
+  ios::sync_with_stdio(false);
+  cin.tie(NULL);
   cout.tie(NULL);
 
-  freopen("13-2.input", "r", stdin);
-  freopen("13-2.output", "w", stdout);
+  freopen("13-16.input", "r", stdin);
+  freopen("13-16.output", "w", stdout);
   for (int i = 0; i < 3; ++i) {
     solution();
   }
 
   return 0;
 }
-
